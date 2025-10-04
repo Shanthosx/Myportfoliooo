@@ -1,4 +1,6 @@
 "use client"
+import Image from "next/image"
+import Link from "next/link"
 
 export function Hero({
   setActiveSection,
@@ -10,6 +12,16 @@ export function Hero({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div className="space-y-6">
+            <div className="flex justify-center md:justify-start mb-6">
+              <Image
+                src="/images/profilepic.png"
+                alt="Profile"
+                width={128}
+                height={128}
+                className="w-32 h-32 object-cover rounded-full border-4 border-green-matrix shadow-lg bg-black"
+                style={{ objectPosition: 'center' }}
+              />
+            </div>
             <h1 className="font-mono text-4xl sm:text-5xl text-balance text-green-matrix">
               {"SHANTHOSH RR"}
             </h1>
@@ -59,12 +71,12 @@ export function Hero({
   B.Tech CSE, Hindustan University (Pre-Final Year)`}
             </pre>
             <div className="mt-4">
-              <a
+              <Link
                 href="/about"
                 className="inline-block font-mono text-xs px-4 py-2 rounded border border-green-matrix/40 text-green-matrix hover:border-green-matrix/70 transition"
               >
                 {"About Me"}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

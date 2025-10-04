@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { Header } from "@/components/Header"
 import { Hero } from "@/components/Hero"
 import { PortfolioGrid } from "@/components/PortfolioGrid"
@@ -48,8 +47,7 @@ const portfolioItems: PortfolioItem[] = [
     description:
       "Full-stack freelance projects with rapid deployment and responsive UIs for client needs.",
     category: "graphics",
-    image:
-      "https://images.unsplash.com/photo-1551281044-8f6c1b96d02e?q=80&w=1080&fit=crop",
+    image: "/images/Master Page gif1.webp",
     year: "2025",
     tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
     type: "image",
@@ -118,22 +116,19 @@ const portfolioItems: PortfolioItem[] = [
 ]
 
 export default function Page() {
-  const router = useRouter()
   const [activeSection, setActiveSection] = useState<"home" | "graphics" | "video" | "photo" | "contact">("home")
   const [showIntroPrompt, setShowIntroPrompt] = useState<boolean>(true)
   const [introAnswer, setIntroAnswer] = useState<string>("")
 
-  // Matrix digital rain characters
-  const matrixChars = useMemo(() => {
-    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?".split("")
-    return Array.from({ length: 50 }, () => chars[Math.floor(Math.random() * chars.length)])
-  }, [])
-
-  // Control laser visibility on initial mount only
-  const [showLaser, setShowLaser] = useState(true)
+  // Matrix digital rain characters - generated client-side to prevent hydration mismatch
+  const [matrixChars, setMatrixChars] = useState<string[]>([])
   useEffect(() => {
-    const t = setTimeout(() => setShowLaser(false), 1200)
-    return () => clearTimeout(t)
+    // Generate characters only on the client after the initial render
+    const generateChars = () => {
+      const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?".split("")
+      return Array.from({ length: 50 }, () => chars[Math.floor(Math.random() * chars.length)])
+    }
+    setMatrixChars(generateChars())
   }, [])
 
   const renderSection = () => {
@@ -151,16 +146,15 @@ export default function Page() {
       default:
         return <Hero setActiveSection={setActiveSection} />
     }
+
   }
 
   return (
     <div className="min-h-screen bg-black-deep text-green-matrix relative overflow-x-hidden">
-      {/* Thin laser line sweeping once on landing open */}
-      {showLaser && activeSection === "home" && (
-        <div className="pointer-events-none fixed inset-x-0 top-1/3 z-50" aria-hidden="true">
-          <div className="laser-scan" />
-        </div>
-      )}
+      {/* Continuously scanning vertical laser line - show on all pages */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 bottom-0 z-50 overflow-hidden" aria-hidden="true">
+        <div className="laser-scan-vertical" />
+      </div>
 
       {/* Header */}
       <Header activeSection={activeSection} setActiveSection={setActiveSection} />

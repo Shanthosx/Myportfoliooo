@@ -181,8 +181,34 @@
     animation: laser 2.8s linear infinite;
   }
 
+  /* Continuous vertical scan animation */
+  @keyframes scan-vertical {
+    0% {
+      transform: translateY(-10%);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translateY(100vh);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-10%);
+      opacity: 0.1;
+    }
+  }
+  .laser-scan-vertical {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green-matrix), transparent);
+    box-shadow: 0 0 10px 2px color-mix(in oklch, var(--green-matrix) 40%, transparent);
+    animation: scan-vertical 6s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .laser-scan,
-    .laser-scan-infinite { animation: none; }
+    .laser-scan-infinite,
+    .laser-scan-vertical { animation: none; }
   }
 }

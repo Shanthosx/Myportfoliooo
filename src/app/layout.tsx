@@ -23,12 +23,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`font-sans ${GeistSans.variable} ${HackerMono.variable}`}>
-        {/* Global continuous laser line sweep */}
-        <div className="pointer-events-none fixed inset-x-0 top-1/3 z-[1000]" aria-hidden="true">
-          <div className="laser-scan-infinite" />
-        </div>
+    <html lang="en" className={`${GeistSans.variable} ${HackerMono.variable} dark`}>
+      <body className="font-sans">
         <Suspense fallback={null}>{children}</Suspense>
       </body>
     </html>
